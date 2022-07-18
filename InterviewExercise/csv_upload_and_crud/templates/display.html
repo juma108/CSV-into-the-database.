@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Database Display</title>
+
+{% load static %}
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'csv_upload_and_crud/images/favicon.png' %}">
+
+<!-- STYLESHEETS -->
+<link rel="stylesheet" href="{% static 'csv_upload_and_crud/css/mainstyle.css' %}">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<style>
+    mychart {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    </style>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script> 
+<script type="text/javascript" src="https://https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script> 
+
+
+
+  <!-- SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="{% static 'csv_upload_and_crud/js/mainscript.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<!-- Filter/search css & JS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+<script>
+	$(document).ready( function () {
+		$('#myTable').DataTable();
+	} );
+	
+</script>
+
+<script>
+	$(document).ready(function(){
+	  $("#t").click(function(){
+		$("canvas").toggle();
+	  });
+	});
+	
+	</script>
+<canvas  id="myChart"  style="width:100%; max-width:1000px" ></canvas>
+
+<!-- Chart js -->
+<script>
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			
+			labels: ['1990', '1991', '1992', '1993', '1994', '1995', '1996' ],
+			datasets: [{
+				label: 'Life expectancy at birth - Afghanistan' ,
+				data: [50.331, 50.999, 51.641, 52.256, 52.842, 53.1, 51.2],
+
+
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.8)',
+					'rgba(54, 162, 235, 0.8)',
+					'rgba(255, 206, 86, 0.8)',
+					'rgba(75, 192, 192, 0.8)',
+					'rgba(153, 102, 255, 0.8)',
+					'rgba(255, 159, 64, 0.8)',
+					'rgba(240, 120, 50, 0.8)',
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)',
+					'rgba(240, 120, 50, 1)',
+
+				],
+				borderWidth: 2
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		}
+	});
+</script>
+
+
+</script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+</head>
+<body>
+<a id='t' class="btn btn-success" data-toggle="modal"><i class="material-icons">insert_chart</i> <span>Toggle Graph</span></a>
+<a  href="../" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Back to file upload</span></a>
+<br><br>
+<div class="container">
+<div class="table-wrapper">
+<div class="table-title">
+	<div class="row">
+		<div class="col-sm-6">
+			<h2>View CSV File Data</b></h2>
+			<h4>File name :</h4>
+			<pre>{{item.file}}</pre>
+			<h4>File rows :</h4>
+			<pre>{{item.rows}}</pre>
+		</div>
+		<div class="col-sm-6">
+			<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+								
+		</div>
+	</div>
+</div>
+
+
+<table id=mytable class=" table table-striped datatable table-hover datatable" border="3">
+<thead>
+	<tr>
+		
+		<th>#</th>
+		<th>COUNTRY CODE</th>
+		<th>COUNTRY NAME</th>
+		<th>INDICATOR NAME</th>
+		<th>1990</th>
+		<th>1991</th>
+		<th>1992</th>
+		<th>1993</th>
+		<th>1994</th>
+	
+	</tr>
+</thead>
+<tbody id="tBody"></tbody>
+</table>
+</div>
+</div>
+
+<div style="visibility:hidden" id="data">{{item.data}}</div>
+<div style="visibility:hidden" id="rows">{{item.rows}}</div>
+
+
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+<script>
+function display(){
+    var data = document.getElementById("data");
+	var rows = document.getElementById("rows");
+	
+	var tBody = document.getElementById("tBody");
+	
+	data=data.innerHTML;
+	rows =rows.innerHTML;
+	data=JSON.parse(data);
+	
+	var b="";
+	for(var i=0;i<parseInt(rows);i++){
+		b+="<tr>";
+				
+		b+="<td>";
+		b+=[i];
+		b+="</td>";
+		
+		b+="<td>";
+		b+=data["Country Code"][i];
+		b+="</td>";
+
+		b+="<td>";
+		b+=data["Country Name"][i];
+		b+="</td>";
+		
+		
+		b+="<td>";
+		b+=data["Indicator Name"][i];
+		b+="</td>";
+		
+		b+="<td>";
+		b+=data["1990"][i];
+		b+="</td>";
+		
+		b+="<td>";
+		b+=data["1991"][i];
+		b+="</td>";
+		
+		b+="<td>";
+		b+=data["1992"][i];
+		b+="</td>";
+		
+		b+="<td>";
+		b+=data["1993"][i];
+		b+="</td>";
+		
+		b+="<td>";
+		b+=data["1994"][i];
+		b+="</td>";
+
+		
+
+		
+		b+="</tr>";
+	}
+	
+	tBody.innerHTML=b;	
+}	
+
+display();	
+
+$(document).ready( function () {
+    $('.datatable').DataTable();
+} );
+</script>
+<!-- Add Modal HTML -->
+<div id="addEmployeeModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form  method="POST" action="{% url "add" %}"> {% csrf_token %}
+				<div class="modal-header">						
+					<h4 class="modal-title">Add Employee</h4>
+					<p class="text-warning">(Read only) You are not admin, this feature is disbled </p>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<div class="form-group">
+						<label>Name</label>
+						<input name='name' type="text" class="form-control" required disabled>
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<input name='email' type="email" class="form-control" required disabled>
+					</div>
+					<div class="form-group">
+						<label>Address</label>
+						<textarea name='address' class="form-control" required disabled></textarea>
+					</div>
+					<div class="form-group">
+						<label>Phone</label>
+						<input name='phone' type="number" class="form-control" required disabled>
+					</div>					
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="add" disabled>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>

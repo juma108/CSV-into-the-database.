@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Upload CSV</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        {% load static %}
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'csv_upload_and_crud/images/favicon.png' %}">
+
+<!-- STYLESHEETS -->
+<link rel="stylesheet" href="{% static 'csv_upload_and_crud/css/mainstyle.css' %}">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- SCRIPTS -->
+<script src="{% static 'csv_upload_and_crud/js/mainscript.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+</head>
+
+<body>
+	<div class="modal-dialog" >
+		<div class="modal-content">
+			<form enctype="multipart/form-data" method="POST" action="{% url "upload" %}"> {% csrf_token %}
+				<div class="modal-header">	
+					<img src="{% static 'csv_upload_and_crud/images/csv.png' %}" alt="csv icon"style="float:left">
+					<br><br><br>					
+					<h2 style="vertical-align: text-bottom">CSV file ready for upload</h2>
+					
+				</div>
+				<div class="modal-body">					
+					<div class="form-group">
+						<i class="text-warning">Headers are in which row?</i><br>
+						<label>Enter row number where there are headers:</label><br>
+						<input placeholder= "Under construction!!!" name="headerrow" type="number" disabled >
+					</div>
+					
+					<div class="form-group">
+						<label>File</label>
+						<input name="file" type="file" class="form-control" required>
+					</div>					
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-success" value="Upload">
+					<br><br>
+					<a href=#Bottom class="btn btn-primary">Go Back to Databases</a>
+					
+				</div>
+	
+			</form>
+		</div>
+	</div>
+	
+{% if list %}
+<div class="container">
+	<div class="table-wrapper">
+	<div class="table-title"></div>
+<table id="Bottom" class=" table table-striped datatable table-hover " border="3" border=1>
+<caption>Upload files</caption>	
+	<thead>
+	<th>ID</th>
+		<th>FILE NAME</th>
+		<th>ROWS</th>
+		<th>ACTION</th>
+	</tr>
+	</thead>
+	<tbody>
+	{% for x in list %}
+		<tr>
+		<td>{{ x.id }}</td>
+		<td>{{ x.file }}</td>
+		<td>{{ x.rows }}</td>
+		<td><a href="{% url 'display' x.id  %}">View Data</a></td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+</div>
+</div>
+</div>
+{% endif %} 
+
+
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+<script>
+$(document).ready( function () {
+    $('.datatable').DataTable();
+} );
+</script>
+</body>
+</html>
